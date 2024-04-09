@@ -1,0 +1,74 @@
+{
+	"name": "cpsit/request-logger",
+	"description": "A PSR-15 compatible request logging middleware",
+	"license": "GPL-3.0-or-later",
+	"type": "library",
+	"authors": [
+		{
+			"name": "Dirk Wenzel",
+			"email": "d.wenzel@familie-redlich.de",
+			"homepage": "https://www.familie-redlich.de",
+			"role": "Maintainer"
+		}
+	],
+	"require": {
+		"php": "~8.1.0 || ~8.2.0 || ~8.3.0",
+		"ext-filter": "*",
+		"ext-json": "*",
+		"ext-mbstring": "*"
+	},
+	"require-dev": {
+		"armin/editorconfig-cli": "^1.5",
+		"ergebnis/composer-normalize": "^2.18",
+		"friendsofphp/php-cs-fixer": "^3.0",
+		"phpstan/extension-installer": "^1.2",
+		"phpstan/phpstan": "^1.2",
+		"phpstan/phpstan-deprecation-rules": "^1.1",
+		"phpstan/phpstan-phpunit": "^1.0",
+		"phpstan/phpstan-symfony": "^1.1",
+		"phpstan/phpstan-webmozart-assert": "^1.2",
+		"phpunit/phpunit": "^10.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"Cpsit\\RequestLogger\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Cpsit\\RequestLogger\\Tests\\": "tests/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"ergebnis/composer-normalize": true,
+			"phpstan/extension-installer": true
+		},
+		"sort-packages": true
+	},
+	"scripts": {
+		"lint": [
+			"@lint:composer:fix",
+			"@lint:editorconfig:fix",
+			"@lint:php:fix"
+		],
+		"lint:composer": "@lint:composer:fix --dry-run",
+		"lint:composer:fix": "@composer normalize --no-check-lock --no-update-lock",
+		"lint:editorconfig": "ec",
+		"lint:editorconfig:fix": "@lint:editorconfig --fix",
+		"lint:php": "@lint:php:fix --dry-run",
+		"lint:php:fix": "php-cs-fixer fix",
+		"migration": [
+			"@migration:rector"
+		],
+		"sca": [
+			"@sca:php"
+		],
+		"sca:php": [
+			"@php tests/Build/service-container.php",
+			"phpstan analyse -c phpstan.neon"
+		],
+		"test": "@test:coverage --no-coverage",
+		"test:coverage": "phpunit -c phpunit.xml"
+	}
+}
