@@ -3,6 +3,7 @@
 namespace Cpsit\RequestLogger\Data;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Cpsit\RequestLogger\Data\DataProviderInterface;
 
 /***************************************************************
  *  Copyright notice

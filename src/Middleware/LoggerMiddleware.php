@@ -2,12 +2,12 @@
 
 namespace Cpsit\RequestLogger\Middleware;
 
-use Cpsit\RequestLogger\Data\DataProviderInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
+use Cpsit\RequestLogger\Data\DataProviderInterface;
 use Cpsit\RequestLogger\Enum\LogLevel;
 use Cpsit\RequestLogger\RequestMatcherInterface;
 
