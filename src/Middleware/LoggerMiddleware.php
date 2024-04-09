@@ -2,6 +2,7 @@
 
 namespace Cpsit\RequestLogger\Middleware;
 
+use Cpsit\RequestLogger\Data\DataProviderInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -29,17 +30,22 @@ use Cpsit\RequestLogger\RequestMatcherInterface;
 readonly class LoggerMiddleware implements MiddlewareInterface
 {
 
-    public function __construct(private LoggerInterface $logger, private RequestMatcherInterface $requestMatcher)
+    public function __construct(
+        private LoggerInterface $logger, 
+        private RequestMatcherInterface $requestMatcher,
+        private DataProviderInterface $dataProvider
+    )
     {
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if($this->requestMatcher->matches($request)) {
+
             $this->logger->log(
-                $this->requestMatcher->getLevel(),
+                $this->requestMatcher->getLevel()->value,
                 $this->requestMatcher->getDescription(),
-                [serialize($request)]
+                $this->dataProvider->get($request)
             );
         }
 

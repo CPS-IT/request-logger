@@ -8,4 +8,6 @@ services:
     resource: '../src/*'
 
   Cpsit\RequestLogger\Middleware\LoggerMiddleware:
+    arguments:
+      $dataProvider: '@Cpsit\RequestLogger\Data\DefaultDataProvider'
     public: true
