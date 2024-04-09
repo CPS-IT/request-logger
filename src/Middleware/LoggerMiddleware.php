@@ -8,6 +8,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
 use Cpsit\RequestLogger\Enum\LogLevel;
+use Cpsit\RequestLogger\RequestMatcherInterface;
 
 /***************************************************************
  *  Copyright notice

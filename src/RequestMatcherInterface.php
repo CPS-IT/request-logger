@@ -1,6 +1,6 @@
 <?php
 
-namespace Cpsit\RequestLogger\Middleware;
+namespace Cpsit\RequestLogger;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Cpsit\RequestLogger\Enum\LogLevel;

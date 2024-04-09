@@ -22,7 +22,7 @@ use Cpsit\RequestLogger\Enum\LogLevel;
 use Psr\Http\Message\ServerRequestInterface;
 use PHPUnit\Framework\TestCase;
 use Cpsit\RequestLogger\Middleware\LoggerMiddleware;
-use Cpsit\RequestLogger\Middleware\RequestMatcherInterface;
+use Cpsit\RequestLogger\RequestMatcherInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
 
