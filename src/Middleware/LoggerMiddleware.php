@@ -25,10 +25,10 @@ use Cpsit\RequestLogger\Enum\LogLevel;
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-readonly class Logger implements MiddlewareInterface
+readonly class LoggerMiddleware implements MiddlewareInterface
 {
 
-    public function __construct(private LoggerInterface $logger, private RequesMatcherInterface $requesMatcher)
+    public function __construct(private LoggerInterface $logger, private RequestMatcherInterface $requestMatcher)
     {
     }
 
@@ -36,8 +36,8 @@ readonly class Logger implements MiddlewareInterface
     {
         if($this->requestMatcher->matches($request)) {
             $this->logger->log(
-                $this->requesMatcher->getLevel(),
-                $this->requesMatcher->getDescription(),
+                $this->requestMatcher->getLevel(),
+                $this->requestMatcher->getDescription(),
                 [serialize($request)]
             );
         }
