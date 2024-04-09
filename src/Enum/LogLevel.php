@@ -19,7 +19,7 @@
 namespace Cpsit\RequestLogger\Enum;
 use Psr\Log\LogLevel as PsrLevel;
 
-enum LogLevel
+enum LogLevel: string
 {
     case EMERGENCY = PsrLevel::EMERGENCY;
     case ALERT     = PsrLevel::ALERT;
