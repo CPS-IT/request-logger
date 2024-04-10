@@ -18,6 +18,7 @@ namespace Cpsit\RequestLogger\Tests\Unit;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Cpsit\RequestLogger\Data\DataProviderInterface;
 use Cpsit\RequestLogger\Enum\LogLevel;
 use Psr\Http\Message\ServerRequestInterface;
 use PHPUnit\Framework\TestCase;
@@ -31,6 +32,7 @@ class LoggerTest extends TestCase
     protected ServerRequestInterface $request;
     protected RequestMatcherInterface $matcher;
     protected RequestHandlerInterface $handler;
+    protected DataProviderInterface $dataProvider;
     protected LoggerInterface $logger;
     protected LoggerMiddleWare $subject;
     public function setUp(): void
@@ -40,10 +42,13 @@ class LoggerTest extends TestCase
         $this->handler = $this->getMockForAbstractClass(RequestHandlerInterface::class);
         $this->matcher = $this->getMockBuilder(RequestMatcherInterface::class)
             ->getMock();
+        $this->dataProvider = $this->getMockBuilder(DataProviderInterface::class)
+            ->getMock();
         $this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
         $this->subject = new LoggerMiddleware(
             $this->logger,
-            $this->matcher
+            $this->matcher,
+            $this->dataProvider
         );
     }
 
@@ -54,6 +59,7 @@ class LoggerTest extends TestCase
             ->willReturn(false);
 
         $this->logger->expects($this->never())->method('log');
+        $this->dataProvider->expects($this->never())->method('get');
         $this->subject->process($this->request, $this->handler);
     }
 
@@ -64,6 +70,7 @@ class LoggerTest extends TestCase
             ->willReturn(true);
 
         $this->logger->expects($this->once())->method('log');
+        $this->dataProvider->expects($this->once())->method('get');
         $this->matcher->expects($this->once())->method('getLevel')
             ->willReturn(LogLevel::INFO);
         $this->subject->process($this->request, $this->handler);
